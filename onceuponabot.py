@@ -24,21 +24,23 @@ else:
 subreddit = reddit.subreddit("TownOfSalemGame")
 
 # Checking the top 5 hottest boys from that spicy subreddit lawl
-for submission in subreddit.hot(limit=5):
+for submission in subreddit.hot(limit=10):
     submission.comments.replace_more(limit=0)
     for comment in submission.comments.list():
-        if comment.id not in comments_replied_to:
-            if re.search('shut up exe', comment.body, re.IGNORECASE):
+        if comment.id not in comments_replied_to and comment.parent().author != 'Shut_Up_Exe_Bot' and comment.parent().author != 'Willard_Points_Bot' and comment.parent().author != 'OnceUponABot':
+            if re.match('shut up exe', comment.body, re.IGNORECASE):
                 print('Bot replying to :', comment.author)
-                comment.reply(random.choice(['Cotton Mather','Deodat Lawson','Edward Bishop','Giles Corey','James Bayley',
-                                            'James Russel','John Hathorne','John Proctor','John Willard','Jonathan Corwin',
-                                            'Samuel Parris','Samuel Sewall','Thomas Danforth','William Hobbs',
-                                            'William Phips']) + " was executed by the Jailor \n\n His role was Sheriff")
+                comment.reply(random.choice(['Cotton Mather', 'Deodat Lawson', 'Edward Bishop', 'Giles Corey', 'James Bayley',
+                                            'James Russel', 'John Hathorne', 'John Proctor', 'John Willard', 'Jonathan Corwin',
+                                             'Samuel Parris', 'Samuel Sewall', 'Thomas Danforth', 'William Hobbs',
+                                             'William Phips']) + " was executed by the Jailor \n\n His role was Sheriff "
+                                                                 "\n\n ^I'm ^a ^mere ^bot ^on ^his ^very ^first ^version."
+                                                                 " ^Contact ^Cukeds ^(my creator) ^if ^you ^want ^to"
+                                                                 " ^suggest ^anything.")
                 comments_replied_to.append(comment.id)
 
 
 # updating list
-
 with open("comments_replied_to.txt", "w") as f:
     for post_id in comments_replied_to:
         f.write(post_id + '\n')
